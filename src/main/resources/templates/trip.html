@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title> Trip - Pollima</title>
+  <link rel="stylesheet" type="text/css" href="style-trip.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+  <nav>
+    <h3><a href="/">Pollima</a> </h3>
+    <ul>
+      <li><a href="/company">Company</a></li>
+      <li><a href="/cargo">Cargo</a></li>
+      <li><a href="/trip">Trip</a></li>
+      <li><a href="/voucher">Voucher</a></li>
+      <li><a href="/report">Report</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <h1>Trip Page</h1>
+    <div class="trip-list">
+      <h2>Trip List</h2>
+      <table>
+        <thead>
+        <tr>
+          <td>trip ID</td>
+          <td>Company Name</td>
+          <td>Cargo Name</td>
+          <td>Start Date</td>
+          <td>End Date</td>
+          <td>From</td>
+          <td>To</td>
+          <td>Rent</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trip : ${allTrip}">
+          <td th:text="${trip.id}"></td>
+          <td th:text="${trip.cargo.company.companyName}"></td>
+          <td th:text="${trip.cargo.cargoName}"></td>
+          <td th:text="${trip.startDate}"></td>
+          <td th:text="${trip.endDate}"></td>
+          <td th:text="${trip.fromLocation}"></td>
+          <td th:text="${trip.toLocation}"></td>
+          <td>
+            <span>&#2547;</span>&nbsp;
+            <span th:text="${trip.rent}"></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="form-container">
+      <h2>Add New trip</h2>
+      <form action="#" th:action="@{/trip}" method="post" th:object="${addNewTrip}">
+        <!--                <label for="cargo-id">Cargo ID:</label>-->
+        <input type="hidden" id="trip-id" name="id" required th:field="*{id}">
+
+        <label for="company-name">Company Name:</label>
+        <select id="company-name" name="company" required th:field="*{companyId}">
+          <option th:each="company:${allCompany}" th:value="${company.ID}" th:text="${company.companyName}"></option>
+        </select>
+
+        <label for="cargo-name">Cargo Name:</label>
+        <select id="cargo-name" name="cargo" required th:field="*{cargoId}">
+          <option th:each="cargo:${allCargo}" th:value="${cargo.ID}" th:text="${cargo.cargoName}"></option>
+        </select>
+
+        <label for="start-date">Start Date</label>
+        <input type="date" id="start-date" name="start" required th:field="*{startDate}">
+
+        <label for="end-date">Reference</label>
+        <input type="date" id="end-date" name="end" required th:field="*{endDate}">
+
+
+        <label for="from-location">From</label>
+        <input type="text" id="from-location" name="from" required th:field="*{fromLocation}">
+
+        <label for="to-location">To</label>
+        <input type="text" id="to-location" name="to" required th:field="*{toLocation}">
+
+        <label for="rent">Rent</label>
+        <input type="text" id="rent" name="rent" required th:field="*{rent}">
+
+
+
+        <input type="submit" value="Add trip">
+      </form>
+    </div>
+
+
+
+  </div>
+</main>
+</body>
+</html>

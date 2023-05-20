@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Voucher - Pollima</title>
+    <link rel="stylesheet" type="text/css" href="style-voucher.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h3><a href="/">Pollima</a> </h3>
+        <ul>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/cargo">Cargo</a></li>
+            <li><a href="/trip">Trip</a></li>
+            <li><a href="/voucher">Voucher</a></li>
+            <li><a href="/report">Report</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Voucher Page</h1>
+        <div class="voucher-list">
+            <h2>Voucher List</h2>
+            <table>
+                <thead>
+                <tr>
+                    <td>Voucher ID</td>
+                    <td>Trip Details</td>
+                    <td>Voucher No</td>
+                    <td>Cargo</td>
+                    <td>Date</td>
+                    <td>DR</td>
+                    <td>CR</td>
+                    <td>Particular</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="voucher : ${allVouchers}">
+                    <td th:text="${voucher.id}"></td>
+                    <td th:text="|${voucher.trip.id} ${voucher.trip.fromLocation}-
+                    ${voucher.trip.toLocation}-${voucher.trip.endDate}|"></td>
+                    <td th:text="${voucher.voucherNo}"></td>
+                    <td th:text="${voucher.cargo.cargoName}"></td>
+                    <td th:text="${voucher.date}"></td>
+                    <td th:text="'&#2547;'+${voucher.dr}"></td>
+                    <td th:text="'&#2547;'+${voucher.cr}"></td>
+                    <td th:text="${voucher.particular}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class = "form-container" >
+            <h2>Add New voucher</h2>
+            <form action="#" th:action="@{/voucher}" method="post" th:object="${addNewVoucher}">
+                <!--                <label for="cargo-id">Cargo ID:</label>-->
+                <input type="hidden" id="voucher-id" name="id" required th:field="*{id}">
+
+                <label for="trip-details">Trip Details:</label>
+                <select id="trip-details" name="trip" required th:field="*{tripId}">
+                    <option th:each="trip:${allTrip}" th:value="${trip.id}" th:text="|${trip.id} ${trip.fromLocation}-${trip.toLocation}-${trip.endDate}|"></option>
+                </select>
+
+                <label for="Voucher-No">Voucher No</label>
+                <input type="text" id="Voucher-No" name="voucher" required th:field="*{voucherNo}">
+
+
+<!--                <label for="cargo-name">Cargo Name</label>-->
+                <input type="hidden" id="cargo-name" name="cargo" required th:field="*{cargoId}"/>
+<!--                    <option th:each="cargo :${allCargo}" th:value="${cargo.ID}" th:text="${cargo.cargoName}"></option>-->
+
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required th:field="*{date}">
+
+                <label for="dr">DR</label>
+                <input type="number" id="dr" name="dr" required th:field="*{dr}">
+
+                <label for="cr">CR</label>
+                <input type="number" id="cr" name="cr" required th:field="*{cr}">
+
+                <label for="particular">Particular</label>
+                <input type="text" id="particular" name="particular" required th:field="*{particular}">
+
+                <input type="submit" value="Add voucher">
+            </form>
+        </div>
+
+
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cargo Page - Pollima</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/">Pollima</a> </h3>
+        <ul>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/cargo">Cargo</a></li>
+            <li><a href="/trip">Trip</a></li>
+            <li><a href="/voucher">Voucher</a></li>
+            <li><a href="/report">Report</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Cargo Page</h1>
+        <div class="cargo-list">
+            <h2>Cargo List</h2>
+            <table>
+                <thead>
+                <tr>
+                <td>Cargo ID</td>
+                <td>Cargo Name</td>
+                <td>Proprietor</td>
+                <td>Contact Number</td>
+                <td>Address</td>
+                <td>Reference</td>
+                <td>Contact Start Date</td>
+                <td>Company</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cargo : ${allCargo}">
+                    <td th:text="${cargo.ID}"></td>
+                    <td th:text="${cargo.cargoName}"></td>
+                    <td th:text="${cargo.proprietor}"></td>
+                    <td th:text="${cargo.contact}"></td>
+                    <td th:text="${cargo.address}"></td>
+                    <td th:text="${cargo.reference}"></td>
+                    <td th:text="${cargo.contactStartDate}"></td>
+                    <td th:text="${cargo.company.companyName}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="form-container">
+            <h2>Add New Cargo</h2>
+            <form action="#" th:action="@{/cargo}" method="post" th:object="${addNewCargo}">
+<!--                <label for="cargo-id">Cargo ID:</label>-->
+                <input type="hidden" id="cargo-id" name="ID" required th:field="*{id}">
+
+                <label for="cargo-name">Cargo Name:</label>
+                <input type="text" id="cargo-name" name="cargoName" required th:field="*{cargoName}">
+
+                <label for="cargo-proprietor">Proprietor Name:</label>
+                <input type="text" id="cargo-proprietor" name="proprietor" required th:field="*{proprietor}">
+
+                <label for="cargo-contact-person">Cargo Contact Person Name:</label>
+                <input type="text" id="cargo-contact-person" name="contactPerson" required th:field="*{contact}">
+
+                <label for="cargo-address">Address</label>
+                <input type="text" id="cargo-address" name="address" required th:field="*{address}">
+
+                <label for="cargo-reference">Reference</label>
+                <input type="text" id="cargo-reference" name="reference" required th:field="*{reference}">
+
+
+                <label for="cargo-contact-start">Contract Start Date</label>
+                <input type="date" id="cargo-contact-start" name="contract" required th:field="*{contactStartDate}">
+
+                <label for="cargo-company">Select Company</label>
+                <select id="cargo-company" name="company" required th:field="*{companyId}">
+                <option th:each="company:${companyList}" th:value="${company.ID}" th:text="${company.companyName}"></option>
+                </select>
+
+
+
+                <input type="submit" value="Add Cargo">
+            </form>
+        </div>
+
+
+
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Company Page - Pollima</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/">Pollima</a> </h3>
+        <ul>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/cargo">Cargo</a></li>
+            <li><a href="/trip">Trip</a></li>
+            <li><a href="/voucher">Voucher</a></li>
+            <li><a href="/report">Report</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Company Page</h1>
+        <div class="company-list">
+            <h2>Company List</h2>
+            <table>
+                <thead>
+
+                    <td>Company ID</td>
+                    <td>Company Name</td>
+                    <td>Company Contact Person Name</td>
+                    <td>Office Location</td>
+                    <td>Contact Number</td>
+
+                </thead>
+                <tbody>
+                <tr th:each="company : ${CompanyList}">
+                    <td th:text="${company.ID}"></td>
+                    <td th:text="${company.companyName}"></td>
+                    <td th:text="${company.contactPerson}"></td>
+                    <td th:text="${company.office}"></td>
+                    <td th:text="${company.contactNo}"></td>
+                </tr>
+                </tbody>
+            </table>
+<!--            <ul>-->
+<!--                <li th:each="company : ${CompanyList}">-->
+<!--                    <span th:text="${company.ID}"></span>-->
+<!--                    <span th:text="${company.companyName}"></span>-->
+<!--                    <span th:text="${company.contactPerson}"></span>-->
+<!--                    <span th:text="${company.office}"></span>-->
+<!--                    <span th:text="${company.contactNo}"></span>-->
+<!--                </li>-->
+<!--            </ul>-->
+        </div>
+
+        <div class="form-container">
+            <h2>Add New Company</h2>
+            <form action="#" th:action="@{/company}" method="post" th:object="${AddNewCompany}">
+<!--                <label for="company-id">Company ID:</label>-->
+                <input type="hidden" id="company-id" name="ID" required th:field="*{ID}">
+
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" name="companyName" required th:field="*{companyName}">
+
+                <label for="company-contact-person">Company Contact Person Name:</label>
+                <input type="text" id="company-contact-person" name="contactPerson" required th:field="*{contactPerson}">
+
+                <label for="company-office">Company Office:</label>
+                <input type="text" id="company-office" name="office" required th:field="*{office}">
+
+                <label for="company-contactNo">Company Contact Number:</label>
+                <input type="text" id="company-contactNo" name="contactNo" required th:field="*{contactNo}">
+
+                <input type="submit" value="Add Company">
+            </form>
+        </div>
+
+
+
+    </div>
+</main>
+</body>
+</html>

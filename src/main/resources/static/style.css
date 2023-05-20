@@ -1,0 +1,247 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 20px;
+}
+
+nav ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+main {
+    background-color: #f2f2f2;
+    padding: 50px 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.form-container input[type="text"], .form-container input[type="email"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container input[type="submit"] {
+    padding: 10px;
+    background-color: #262626;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #333;
+}
+
+.company-list {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.company-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+.cargo-list {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.cargo-list h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.cargo-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cargo-list th, .cargo-list td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.cargo-list th {
+    background-color: #f2f2f2;
+}
+
+.cargo-list td a {
+    color: #262626;
+    text-decoration: none;
+}
+
+.cargo-list td a:hover {
+    font-weight: bold;
+}
+
+
+
+.company-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.company-list th, .company-list td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.company-list th {
+    background-color: #f2f2f2;
+}
+
+.company-list td a {
+    color: #262626;
+    text-decoration: none;
+}
+
+.company-list td a:hover {
+    font-weight: bold;
+}
+
+.add-company-form {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.add-company-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-company-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-company-form label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.add-company-form input[type="text"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-company-form input[type="submit"] {
+    padding: 10px;
+    background-color: #262626;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-company-form input[type="submit"]:hover {
+    background-color: #333;
+}
+
+
+.add-cargo-form {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+.add-cargo-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-cargo-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-cargo-form label {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.add-cargo-form input[type="text"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-cargo-form input[type="submit"] {
+    padding: 10px;
+    background-color: #262626;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-cargo-form input[type="submit"]:hover {
+    background-color: #333;
+}

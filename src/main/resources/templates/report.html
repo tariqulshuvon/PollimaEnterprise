@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Report - Pollima</title>
+    <link rel="stylesheet" type="text/css" href="style-voucher.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h3><a href="/">Pollima</a> </h3>
+        <ul>
+            <li><a href="/company">Company</a></li>
+            <li><a href="/cargo">Cargo</a></li>
+            <li><a href="/trip">Trip</a></li>
+            <li><a href="/voucher">Voucher</a></li>
+            <li><a href="/report">Report</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <h1>Reports Page</h1>
+        <div class="voucher-list">
+            <h2>Report List</h2>
+            <table>
+                <thead>
+
+            <tr>
+                <th>Cargo Name</th>
+                <th>Trip</th>
+                <th>Rent</th>
+                <th>Date</th>
+                <th>DR</th>
+                <th>CR</th>
+            </tr>
+                </thead>
+                <tbody>
+
+            <tr th:each="voucher : ${allVoucher}">
+                <td th:value="${voucher.trip.cargo.ID}" th:text="${voucher.trip.cargo.cargoName}"></td>
+                <td th:text="${voucher.trip.id} + ' - ' + ${voucher.trip.toLocation} + ' - ' + ${voucher.trip.endDate}"></td>
+                <td th:text="${voucher.trip.rent}"></td>
+                <td th:text="${voucher.date}"></td>
+                <td th:text="${voucher.dr}"></td>
+                <td th:text="${voucher.cr}"></td>
+            </tr>
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+    </div>
+</main>
+</body>
+</html>
+
+
+
