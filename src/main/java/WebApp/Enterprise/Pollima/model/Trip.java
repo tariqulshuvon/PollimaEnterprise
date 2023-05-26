@@ -45,8 +45,4 @@ public class Trip {
     @JoinColumn(name = "report_id", referencedColumnName = "id")
     private Voucher voucher;
 
-//    @ManyToOne(targetEntity = Report.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "trip_id", referencedColumnName = "id")
-//    private Report report;
-
 }
