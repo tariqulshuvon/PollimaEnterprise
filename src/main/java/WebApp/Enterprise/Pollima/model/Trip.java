@@ -44,4 +44,5 @@ public class Trip {
     @OneToOne(targetEntity = Voucher.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id", referencedColumnName = "id")
     private Voucher voucher;
+
 }
