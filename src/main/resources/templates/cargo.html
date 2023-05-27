@@ -4,11 +4,16 @@
 <head>
     <title>Cargo Page - Pollima</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
 <header>
     <nav>
-        <a href="/">Pollima</a> </h3>
+        <div class="row">
+        <div class="col-md-6">
+        <h3><a href="/">Pollima</a> </h3>
+        </div>
+        <div class="col-md-6">
         <ul>
             <li><a href="/company">Company</a></li>
             <li><a href="/cargo">Cargo</a></li>
@@ -16,6 +21,8 @@
             <li><a href="/voucher">Voucher</a></li>
             <li><a href="/report">Report</a></li>
         </ul>
+        </div>
+        </div>
     </nav>
 </header>
 
@@ -77,10 +84,10 @@
 
 
                 <label for="cargo-contact-start">Contract Start Date</label>
-                <input type="date" id="cargo-contact-start" name="contract" required th:field="*{contactStartDate}">
+                <input type="date" id="cargo-contact-start" placeholder="Select Date" name="contract" required class="form-control form-control-lg" th:field="*{contactStartDate}">
 
                 <label for="cargo-company">Select Company</label>
-                <select id="cargo-company" name="company" required th:field="*{companyId}">
+                <select id="cargo-company" name="company" required class="form-control form-control-lg" th:field="*{companyId}">
                 <option th:each="company:${companyList}" th:value="${company.ID}" th:text="${company.companyName}"></option>
                 </select>
 
