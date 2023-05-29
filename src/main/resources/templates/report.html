@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})"
+>
 <head>
     <title> Report - Pollima</title>
-    <link rel="stylesheet" type="text/css" href="style-voucher.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <h3><a href="/">Pollima</a> </h3>
-        <ul>
-            <li><a href="/company">Company</a></li>
-            <li><a href="/cargo">Cargo</a></li>
-            <li><a href="/trip">Trip</a></li>
-            <li><a href="/voucher">Voucher</a></li>
-            <li><a href="/report">Report</a></li>
-        </ul>
-    </nav>
-</header>
-
+<section>
 <main>
     <div class="container">
         <h1>Reports Page</h1>
@@ -56,6 +44,7 @@
 
     </div>
 </main>
+</section>
 </body>
 </html>
 
