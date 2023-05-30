@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout :: layout(~{::title}, ~{::section})"
+>
 <head>
   <title> Trip - Pollima</title>
-  <link rel="stylesheet" type="text/css" href="style-trip.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<header>
-  <nav>
-    <h3><a href="/">Pollima</a> </h3>
-    <ul>
-      <li><a href="/company">Company</a></li>
-      <li><a href="/cargo">Cargo</a></li>
-      <li><a href="/trip">Trip</a></li>
-      <li><a href="/voucher">Voucher</a></li>
-      <li><a href="/report">Report</a></li>
-    </ul>
-  </nav>
-</header>
-
+<section>
 <main>
   <div class="container">
     <h1>Trip Page</h1>
@@ -75,10 +63,10 @@
         </select>
 
         <label for="start-date">Start Date</label>
-        <input type="date" id="start-date" name="start" required th:field="*{startDate}">
+        <input type="date" id="start-date" class="form-control form-control-lg" name="start" required th:field="*{startDate}">
 
-        <label for="end-date">Reference</label>
-        <input type="date" id="end-date" name="end" required th:field="*{endDate}">
+        <label for="end-date">End Date</label>
+        <input type="date" id="end-date" class="form-control form-control-lg" name="end" required th:field="*{endDate}">
 
 
         <label for="from-location">From</label>
@@ -100,5 +88,6 @@
 
   </div>
 </main>
+</section>
 </body>
 </html>
