@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="style-navbar.css">
-    <title>Navbar</title>
-</head>
-<body>
-<nav th:fragment="navbar">
-    <a href="/" class="logo">Pollima</a>
-    <ul>
-        <li><a href="/company" class="">Company</a></li>
-        <li><a href="/cargo">Cargo</a></li>
-        <li><a href="/trip">Trip</a></li>
-        <li><a href="/voucher">Voucher</a></li>
-        <li><a href="/report">Report</a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="/" style="font-family: Product Sans, Arial;">Pollima</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white" href="/company">Company</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white" href="/cargo">Cargo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white" href="/trip">Trip</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white" href="/voucher">Voucher</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: white" href="/report">Report</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
-
-
-</body>
-</html>
