@@ -1,25 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="/" style="font-family: Product Sans, Arial;">Pollima</a>
+        <a class="navbar-brand" th:classappend="${#request.getRequestURI() == '/'} ? 'active'" href="/" style="font-family: Product Sans, Arial;">Pollima</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white"  href="/company">Company</a>
+                    <a class="nav-link text-white" th:classappend="${#request.getRequestURI() == '/company'} ? 'active'" href="/company">Company</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/cargo">Cargo</a>
+                    <a class="nav-link text-white" th:classappend="${#request.getRequestURI() == '/cargo'} ? 'active'" href="/cargo">Cargo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/trip">Trip</a>
+                    <a class="nav-link text-white" th:classappend="${#request.getRequestURI() == '/trip'} ? 'active'" href="/trip">Trip</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/voucher">Voucher</a>
+                    <a class="nav-link text-white" th:classappend="${#request.getRequestURI() == '/voucher'} ? 'active'" href="/voucher">Voucher</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/report">Report</a>
+                    <a class="nav-link text-white" th:classappend="${#request.getRequestURI()== '/report'} ? 'active'" href="/report">Report</a>
                 </li>
             </ul>
         </div>

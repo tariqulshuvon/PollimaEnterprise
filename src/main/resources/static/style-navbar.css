@@ -31,6 +31,9 @@ nav a:hover,
 nav a.active {
     border-bottom: 3px solid #fff;
 }
+    nav .nav-link.active {
+        border-bottom: 3px solid white;
+    }
 
 /* Main Content Styles */
 .hero {
