@@ -18,7 +18,7 @@ public class Company {
     private Long ID;
 
     @Column
-    private String CompanyName;
+    private String companyName;
 
     @Column
     private String contactPerson;

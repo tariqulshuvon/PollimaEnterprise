@@ -12,4 +12,8 @@ public interface CompanyService {
 
     Optional<Company> findById(Long id);
 
+    void delete(Long id);
+
+    Optional<Company> findByCompanyName(String name);
+
 }

@@ -8,11 +8,10 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,15 +28,24 @@ public class CompanyController {
     public String company(Model model){
         List<Company> companyList = companyService.findAll();
         model.addAttribute("CompanyList",companyList);
-        model.addAttribute("AddNewCompany", CompanyForm.builder().build());
+        model.addAttribute("saveNewCompany", CompanyForm.builder().build());
         return "company";
     }
 
     @PostMapping
-    private String saveCompany(@ModelAttribute("saveNewCompany") CompanyForm form){
+    private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
+
+        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+                result.rejectValue("companyName","error.company", form.getCompanyName()+" already Exist, add a new Company")
+        );
+
+        if (result.hasErrors()){
+            return "company";
+        }
+
         companyService.save(Company.builder()
                 .ID(form.getID())
-                .CompanyName(form.getCompanyName())
+                .companyName(form.getCompanyName())
                 .contactPerson(form.getContactPerson())
                 .office(form.getOffice())
                 .contactNo(form.getContactNo())
@@ -45,4 +53,24 @@ public class CompanyController {
         return "redirect:/company";
     }
 
+    @GetMapping("/delete")
+    private String deleteCompany(@RequestParam(name = "id") long id){
+        companyService.delete(id);
+        return "redirect:/company";
+    }
+
+    @GetMapping("/edit")
+    private String editCompany(Model model,@RequestParam(name = "id")long id) {
+        companyService.findById(id).ifPresent(company -> {
+            CompanyForm companyForm = CompanyForm.builder()
+                    .ID(company.getID())
+                    .companyName(company.getCompanyName())
+                    .contactPerson(company.getContactPerson())
+                    .office(company.getOffice())
+                    .contactNo(company.getContactNo())
+                    .build();
+            model.addAttribute("saveNewCompany",companyForm);
+        });
+        return "company";
+    }
 }
