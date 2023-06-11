@@ -2,9 +2,6 @@ package WebApp.Enterprise.Pollima.controller;
 
 import WebApp.Enterprise.Pollima.form.TripForm;
 import WebApp.Enterprise.Pollima.model.Trip;
-import WebApp.Enterprise.Pollima.repository.CargoRepository;
-import WebApp.Enterprise.Pollima.repository.CompanyRepository;
-import WebApp.Enterprise.Pollima.repository.TripRepository;
 import WebApp.Enterprise.Pollima.service.CargoService;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import WebApp.Enterprise.Pollima.service.TripService;
@@ -45,7 +42,6 @@ public class TripController {
         cargoService.findById(tripForm.getCargoId()).ifPresent(cargo -> {
             tripService.save(Trip.builder()
                             .id(tripForm.getId())
-                            .company(cargo.getCompany())
                             .cargo(cargo)
                             .startDate(tripForm.getStartDate())
                             .endDate(tripForm.getEndDate())

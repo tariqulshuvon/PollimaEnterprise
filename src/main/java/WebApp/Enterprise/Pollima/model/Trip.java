@@ -3,8 +3,6 @@ package WebApp.Enterprise.Pollima.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
-
 @Entity
 @Table(name = "trip")
 @NoArgsConstructor

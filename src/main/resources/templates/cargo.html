@@ -4,82 +4,95 @@
       th:replace="layout :: layout(~{::title}, ~{::section})"
 >
 <head>
-    <title>Cargo Page - Pollima</title>
+    <title>Cargo - Pollima</title>
 </head>
 <body>
 <section>
 <main>
     <div class="container">
         <h1>Cargo Page</h1>
-        <div class="cargo-list">
+
+        <div class="form-container">
+            <h2>Add New Cargo</h2>
+            <form action="#" th:action="@{/cargo}" method="post" th:object="${saveNewCargo}">
+                <input type="hidden" id="cargo-id" name="ID" required th:field="*{id}">
+
+                <label for="cargo-name">Cargo Name:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('cargoName')}" th:errors="${saveNewCargo.cargoName}">Error</span>
+                <input type="text" id="cargo-name" name="cargoName" placeholder="You must enter a Name" th:field="*{cargoName}">
+
+                <label for="cargo-proprietor">Proprietor Name:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('proprietor')}" th:errors="${saveNewCargo.proprietor}"></span>
+                <input type="text" id="cargo-proprietor" name="proprietor" placeholder="You must Enter the Proprietor" th:field="*{proprietor}">
+
+                <label for="cargo-contact-person">Cargo Contact Person Name:</label>
+                <input type="text" id="cargo-contact-person" name="contactPerson"  th:field="*{contact}">
+
+                <label for="cargo-address">Address</label>
+                <input type="text" id="cargo-address" name="address"  th:field="*{address}">
+
+                <label for="cargo-reference">Reference</label>
+                <input type="text" id="cargo-reference" name="reference"  th:field="*{reference}">
+
+                <label for="cargo-contact-start">Contract Start Date</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('contactStartDate')}" th:errors="${saveNewCargo.contactStartDate}"></span>
+                <input type="date" class="md-form md-outline input-with-post-icon datepicker" id="cargo-contact-start" placeholder="You Must Select the Date" name="contract"   th:field="*{contactStartDate}">
+
+                <input type="submit" class="form-control form-control-lg" value="Add Cargo">
+            </form>
+        </div>
+
+        <div class="table-responsive">
             <h2>Cargo List</h2>
-            <table>
+            <table class="table table-striped table-dark">
                 <thead>
                 <tr>
-                <td>Cargo ID</td>
-                <td>Cargo Name</td>
-                <td>Proprietor</td>
-                <td>Contact Number</td>
-                <td>Address</td>
-                <td>Reference</td>
-                <td>Contact Start Date</td>
-                <td>Company</td>
-
+                    <td>Cargo Name</td>
+                    <td>Proprietor</td>
+                    <td>Contact Number</td>
+                    <td>Address</td>
+                    <td>Reference</td>
+                    <td>Contact Start Date</td>
+                    <td colspan="2">Credentials</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="cargo : ${allCargo}">
-                    <td th:text="${cargo.ID}"></td>
                     <td th:text="${cargo.cargoName}"></td>
                     <td th:text="${cargo.proprietor}"></td>
                     <td th:text="${cargo.contact}"></td>
                     <td th:text="${cargo.address}"></td>
                     <td th:text="${cargo.reference}"></td>
                     <td th:text="${cargo.contactStartDate}"></td>
-                    <td th:text="${cargo.company.companyName}"></td>
+                    <td>
+                        <form th:action="@{/cargo/edit/}" method="get">
+                            <input type="hidden" name="id" th:value="${cargo.ID}" />
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/cargo/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${cargo.ID}" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-
         </div>
-
-        <div class="form-container">
-            <h2>Add New Cargo</h2>
-            <form action="#" th:action="@{/cargo}" method="post" th:object="${addNewCargo}">
-<!--                <label for="cargo-id">Cargo ID:</label>-->
-                <input type="hidden" id="cargo-id" name="ID" required th:field="*{id}">
-
-                <label for="cargo-name">Cargo Name:</label>
-                <input type="text" id="cargo-name" name="cargoName" required th:field="*{cargoName}">
-
-                <label for="cargo-proprietor">Proprietor Name:</label>
-                <input type="text" id="cargo-proprietor" name="proprietor" required th:field="*{proprietor}">
-
-                <label for="cargo-contact-person">Cargo Contact Person Name:</label>
-                <input type="text" id="cargo-contact-person" name="contactPerson" required th:field="*{contact}">
-
-                <label for="cargo-address">Address</label>
-                <input type="text" id="cargo-address" name="address" required th:field="*{address}">
-
-                <label for="cargo-reference">Reference</label>
-                <input type="text" id="cargo-reference" name="reference" required th:field="*{reference}">
-
-
-                <label for="cargo-contact-start">Contract Start Date</label>
-                <input type="date" id="cargo-contact-start" placeholder="Select Date" name="contract" required class="form-control form-control-lg" th:field="*{contactStartDate}">
-
-                <label for="cargo-company">Select Company</label>
-                <select id="cargo-company" name="company" required class="form-control form-control-lg" th:field="*{companyId}">
-                <option th:each="company:${companyList}" th:value="${company.ID}" th:text="${company.companyName}"></option>
-                </select>
-
-
-
-                <input type="submit" value="Add Cargo">
-            </form>
-        </div>
-
-
+        <nav aria-label="Page navigation example" th:if="${cargoPage?.totalPages > 1}">
+            <ul class="pagination justify-content-end">
+                <li class="page-item" th:classappend="${cargoPage.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/cargo(page=${cargoPage.number - 1},size=${cargoPage.size})}" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item" th:classappend="${page == cargoPage.number} ? 'active'" th:each="page : ${#numbers.sequence(0, cargoPage.totalPages - 1)}">
+                    <a class="page-link" th:href="@{/cargo(page=${page},size=${cargoPage.size})}" th:text="${page + 1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${cargoPage.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/cargo(page=${cargoPage.number + 1},size=${cargoPage.size})}">Next</a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
 </main>
