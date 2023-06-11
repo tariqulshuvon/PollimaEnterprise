@@ -29,9 +29,9 @@ public class Company {
     @Column
     private String contactNo;
 
-    @OneToMany(targetEntity = Cargo.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
-    private List<Cargo> CargoList;
+//    @OneToMany(targetEntity = Cargo.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
+//    private List<Cargo> CargoList;
 
     @OneToMany(targetEntity = Trip.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "companyId", referencedColumnName = "ID")

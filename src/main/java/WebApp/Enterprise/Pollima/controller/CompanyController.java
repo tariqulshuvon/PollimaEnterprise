@@ -6,6 +6,9 @@ import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,19 +28,23 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping
-    public String company(Model model){
-        List<Company> companyList = companyService.findAll();
-        model.addAttribute("CompanyList",companyList);
+    public String company(Model model, @PageableDefault(size = 2) Pageable pageable) {
+        Page<Company> companyPage = companyService.findAll(pageable);
+        List<Company> companyList = companyPage.getContent();
+        model.addAttribute("companyList", companyList);
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
+        model.addAttribute("companyPage", companyPage);
         return "company";
     }
 
     @PostMapping
-    private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
+    public String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
 
-        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-                result.rejectValue("companyName","error.company", form.getCompanyName()+" already Exist, add a new Company")
-        );
+        if (form.getID()==null) {
+            companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+                    result.rejectValue("companyName", "error.company", form.getCompanyName() + " already Exist, add a new Company")
+            );
+        }
 
         if (result.hasErrors()){
             return "company";
@@ -54,13 +61,13 @@ public class CompanyController {
     }
 
     @GetMapping("/delete")
-    private String deleteCompany(@RequestParam(name = "id") long id){
+    public String deleteCompany(@RequestParam(name = "id") long id){
         companyService.delete(id);
         return "redirect:/company";
     }
 
-    @GetMapping("/edit")
-    private String editCompany(Model model,@RequestParam(name = "id")long id) {
+    @GetMapping("/edit/{id}")
+    public String editCompany(Model model,@PathVariable(name = "id")long id) {
         companyService.findById(id).ifPresent(company -> {
             CompanyForm companyForm = CompanyForm.builder()
                     .ID(company.getID())

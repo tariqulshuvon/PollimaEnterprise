@@ -45,7 +45,7 @@ public class TripController {
         cargoService.findById(tripForm.getCargoId()).ifPresent(cargo -> {
             tripService.save(Trip.builder()
                             .id(tripForm.getId())
-                            .company(cargo.getCompany())
+//                            .company(cargo.getCompany())
                             .cargo(cargo)
                             .startDate(tripForm.getStartDate())
                             .endDate(tripForm.getEndDate())

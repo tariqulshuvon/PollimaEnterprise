@@ -21,7 +21,7 @@ public class Cargo {
     private Long ID;
 
     @Column
-    private String CargoName;
+    private String cargoName;
 
     @Column
     private String Proprietor;
@@ -37,10 +37,10 @@ public class Cargo {
 
     @Column
     private String ContactStartDate;
-
-    @ManyToOne
-    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
-    private Company company;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
+//    private Company company;
 
     @OneToMany(targetEntity = Trip.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "cargoId", referencedColumnName = "ID")

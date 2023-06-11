@@ -4,59 +4,90 @@ import WebApp.Enterprise.Pollima.form.CargoForm;
 import WebApp.Enterprise.Pollima.model.Cargo;
 import WebApp.Enterprise.Pollima.service.CargoService;
 import WebApp.Enterprise.Pollima.service.CompanyService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/cargo")
 public class CargoController {
     private CargoService cargoService;
-    private CompanyService companyService;
 
-    public void YourController(CargoService cargoService, CompanyService companyService) {
+    public CargoController(CargoService cargoService) {
         this.cargoService = cargoService;
-        this.companyService = companyService;
     }
 
-    public CargoController(CargoService cargoService, CompanyService companyService) {
+    public void setCargoService(CargoService cargoService) {
         this.cargoService = cargoService;
-        this.companyService = companyService;
     }
 
 
     @GetMapping
-    public String showCargoPage(Model model){
-        List<Cargo> cargoList = cargoService.findAll();
+    public String showCargoPage(Model model, @PageableDefault(size = 2) Pageable pageable){
+        Page<Cargo> cargoPage = cargoService.findAll(pageable);
+        List<Cargo> cargoList = cargoPage.getContent();
         model.addAttribute("allCargo",cargoList);
-        model.addAttribute("addNewCargo", CargoForm.builder().build());
-        model.addAttribute("companyList", companyService.findAll());
+        model.addAttribute("saveNewCargo", CargoForm.builder().build());
+        model.addAttribute("cargoPage",cargoPage);
+//        model.addAttribute("companyList", companyService.findAll());
         return "cargo";
     }
 
     @PostMapping
-    private String saveCargo(@ModelAttribute("saveNewCargo") CargoForm form) {
-        companyService.findById(form.getCompanyId()).ifPresent(company -> {
-        cargoService.save(Cargo.builder()
-                .ID(form.getId())
-                .CargoName(form.getCargoName())
-                .Proprietor(form.getProprietor())
-                .Contact(form.getContact())
-                .Address(form.getAddress())
-                .Reference(form.getReference())
-                .ContactStartDate(form.getContactStartDate())
-                .company(company)
-                .build());
-        });
+    private String saveCargo(@Valid @ModelAttribute("saveNewCargo") CargoForm form, BindingResult result) {
+//        companyService.findById(form.getCompanyId()).ifPresent(company -> {
+        if (form.getId() == null) {
+            cargoService.findByCargoName(form.getCargoName()).ifPresent(cargo -> {
+                result.rejectValue("cargoName", "error.cargo", form.getCargoName()+"already exist, Please add a new Cargo");
+            });
+        }
+        if (result.hasErrors()){
+            return "cargo";
+        }else {
+            cargoService.save(Cargo.builder()
+                    .ID(form.getId())
+                    .cargoName(form.getCargoName())
+                    .Proprietor(form.getProprietor())
+                    .Contact(form.getContact())
+                    .Address(form.getAddress())
+                    .Reference(form.getReference())
+                    .ContactStartDate(form.getContactStartDate())
+//                .company(company)
+                    .build());
+//        });
 
-        return "redirect:/cargo";
-
+            return "redirect:/cargo";
+        }
     }
 
+    @GetMapping("/edit/")
+    public String editCargo(Model model, @RequestParam(name = "id")long id){
+        cargoService.findById(id).ifPresent(cargo -> {
+            CargoForm cargoForm = CargoForm.builder()
+                    .cargoName(cargo.getCargoName())
+                    .proprietor(cargo.getProprietor())
+                    .contact(cargo.getContact())
+                    .address(cargo.getAddress())
+                    .reference(cargo.getReference())
+                    .contactStartDate(cargo.getContactStartDate())
+                    .build();
+            model.addAttribute("saveNewCargo",cargoForm);
+        });
+
+        return "cargo";
+    }
+
+    @PostMapping("/delete")
+    public String deleteCargo(@RequestParam(name = "id")long id){
+        cargoService.delete(id);
+        return "redirect:/cargo";
+    }
 
 }
