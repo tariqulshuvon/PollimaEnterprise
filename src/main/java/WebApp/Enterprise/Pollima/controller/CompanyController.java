@@ -6,12 +6,15 @@ import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.MessageFormat;
 import java.util.List;
 
 @Controller
@@ -22,22 +25,41 @@ public class CompanyController {
 
 
 
+    private MessageSource messageSource;
     private CompanyService companyService;
 
     @GetMapping
-    public String company(Model model){
+    public String company(Model model) {
         List<Company> companyList = companyService.findAll();
-        model.addAttribute("CompanyList",companyList);
+        model.addAttribute("CompanyList", companyList);
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
         return "company";
     }
-
+//
+//    String messageToShow = messageSource.getMessage("company.exist",null, LocaleContextHolder.getLocale());
+//    String companyName = form.getCompanyName();
+//    String theMessage = MessageFormat.format(messageToShow,companyName);
+//
+//        if (form.getID()==null) {
+//        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+//                result.rejectValue("companyName", "error.company", theMessage)
+//        );
+//    }
     @PostMapping
     private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
+        String messageToShow = messageSource.getMessage("company.exist",null, LocaleContextHolder.getLocale());
+        String companyName = form.getCompanyName();
+        String theMessage = MessageFormat.format(messageToShow,companyName);
 
-        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-                result.rejectValue("companyName","error.company", form.getCompanyName()+" already Exist, add a new Company")
-        );
+        if (form.getID()==null) {
+            companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+                    result.rejectValue("companyName", "error.company", theMessage)
+            );
+        }
+
+//        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+//                result.rejectValue("companyName","error.company", form.getCompanyName()+" already Exist, add a new Company")
+//        );
 
         if (result.hasErrors()){
             return "company";
