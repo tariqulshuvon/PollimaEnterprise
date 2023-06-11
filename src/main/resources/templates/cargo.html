@@ -15,7 +15,6 @@
         <div class="form-container">
             <h2>Add New Cargo</h2>
             <form action="#" th:action="@{/cargo}" method="post" th:object="${saveNewCargo}">
-<!--                <label for="cargo-id">Cargo ID:</label>-->
                 <input type="hidden" id="cargo-id" name="ID" required th:field="*{id}">
 
                 <label for="cargo-name">Cargo Name:</label>
@@ -35,17 +34,9 @@
                 <label for="cargo-reference">Reference</label>
                 <input type="text" id="cargo-reference" name="reference"  th:field="*{reference}">
 
-
                 <label for="cargo-contact-start">Contract Start Date</label>
                 <span class="text-danger" th:if="${#fields.hasErrors('contactStartDate')}" th:errors="${saveNewCargo.contactStartDate}"></span>
                 <input type="date" class="md-form md-outline input-with-post-icon datepicker" id="cargo-contact-start" placeholder="You Must Select the Date" name="contract"   th:field="*{contactStartDate}">
-
-<!--                <label for="cargo-company">Select Company</label>-->
-<!--                <select id="cargo-company" name="company" required th:field="*{companyId}">-->
-<!--                <option th:each="company:${companyList}" th:value="${company.ID}" th:text="${company.companyName}"></option>-->
-<!--                </select>-->
-
-
 
                 <input type="submit" class="form-control form-control-lg" value="Add Cargo">
             </form>
@@ -63,8 +54,6 @@
                     <td>Reference</td>
                     <td>Contact Start Date</td>
                     <td colspan="2">Credentials</td>
-<!--                    <td>Company</td>-->
-
                 </tr>
                 </thead>
                 <tbody>
@@ -87,7 +76,6 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
-                    <!--                    <td th:text="${cargo.company.companyName}"></td>-->
                 </tr>
                 </tbody>
             </table>

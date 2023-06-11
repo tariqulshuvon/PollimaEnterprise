@@ -12,10 +12,10 @@ public class CargoForm {
 
     private Long id;
 
-    @NotBlank(message = "You must Enter a Cargo name")
+    @NotBlank(message = "{cargo.name.required}")
     private String cargoName;
 
-    @NotBlank(message = "Please provide the Proprietor")
+    @NotBlank(message = "{cargo.proprietor.required}")
     private String proprietor;
 
     private String contact;
@@ -24,6 +24,6 @@ public class CargoForm {
 
     private String reference;
 
-    @NotBlank(message = "Please Select the Contract Start Date")
+    @NotBlank(message = "{cargo.contact.required}")
     private String contactStartDate;
 }

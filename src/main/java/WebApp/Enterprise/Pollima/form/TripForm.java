@@ -3,8 +3,6 @@ package WebApp.Enterprise.Pollima.form;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Builder
 @Data
 public class TripForm {

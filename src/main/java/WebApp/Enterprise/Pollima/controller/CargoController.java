@@ -3,7 +3,6 @@ package WebApp.Enterprise.Pollima.controller;
 import WebApp.Enterprise.Pollima.form.CargoForm;
 import WebApp.Enterprise.Pollima.model.Cargo;
 import WebApp.Enterprise.Pollima.service.CargoService;
-import WebApp.Enterprise.Pollima.service.CompanyService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -36,13 +35,11 @@ public class CargoController {
         model.addAttribute("allCargo",cargoList);
         model.addAttribute("saveNewCargo", CargoForm.builder().build());
         model.addAttribute("cargoPage",cargoPage);
-//        model.addAttribute("companyList", companyService.findAll());
         return "cargo";
     }
 
     @PostMapping
     private String saveCargo(@Valid @ModelAttribute("saveNewCargo") CargoForm form, BindingResult result) {
-//        companyService.findById(form.getCompanyId()).ifPresent(company -> {
         if (form.getId() == null) {
             cargoService.findByCargoName(form.getCargoName()).ifPresent(cargo -> {
                 result.rejectValue("cargoName", "error.cargo", form.getCargoName()+"already exist, Please add a new Cargo");
@@ -59,9 +56,7 @@ public class CargoController {
                     .Address(form.getAddress())
                     .Reference(form.getReference())
                     .ContactStartDate(form.getContactStartDate())
-//                .company(company)
                     .build());
-//        });
 
             return "redirect:/cargo";
         }
