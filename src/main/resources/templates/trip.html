@@ -11,12 +11,53 @@
 <main>
   <div class="container">
     <h1>Trip Page</h1>
-    <div class="trip-list">
+    <div class="form-container">
+      <h2>Add New trip</h2>
+      <form action="#" th:action="@{/trip}" method="post" th:object="${addNewTrip}">
+        <input type="hidden" id="trip-id" name="id" th:field="*{id}">
+
+        <label for="company-name">Company Name:</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('companyId')}" th:errors="${addNewTrip.companyId}">Error</span>
+        <select id="company-name" name="company"  th:field="*{companyId}">
+          <option th:each="company:${allCompany}" th:value="${company?.ID}" th:text="${company.companyName}"></option>
+        </select>
+
+        <label for="cargo-name">Cargo Name:</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('cargoId')}" th:errors="${addNewTrip.cargoId}">Error</span>
+        <select id="cargo-name" name="cargo"  th:field="*{cargoId}">
+          <option th:each="cargo:${allCargo}" th:value="${cargo?.ID}" th:text="${cargo.cargoName}"></option>
+        </select>
+
+        <label for="start-date">Start Date</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="${addNewTrip.startDate}">Error</span>
+        <input type="date" id="start-date"  name="start"  th:field="*{startDate}">
+
+        <label for="end-date">End Date</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="${addNewTrip.endDate}">Error</span>
+        <input type="date" id="end-date" name="end"  th:field="*{endDate}">
+
+
+        <label for="from-location">From</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('fromLocation')}" th:errors="${addNewTrip.fromLocation}">Error</span>
+        <input type="text" id="from-location" name="from"  th:field="*{fromLocation}">
+
+        <label for="to-location">To</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('toLocation')}" th:errors="${addNewTrip.toLocation}">Error</span>
+        <input type="text" id="to-location" name="to"  th:field="*{toLocation}">
+
+        <label for="rent">Rent</label>
+        <span class="text-danger" th:if="${#fields.hasErrors('rent')}" th:errors="${addNewTrip.rent}">Error</span>
+        <input type="number" id="rent" name="rent"  th:field="*{rent}" step="0.01" >
+
+        <input type="submit" value="Save trip">
+      </form>
+    </div>
+
+    <div class="table-responsive">
       <h2>Trip List</h2>
-      <table>
+      <table class="table table-striped table-dark">
         <thead>
         <tr>
-          <td>trip ID</td>
           <td>Company Name</td>
           <td>Cargo Name</td>
           <td>Start Date</td>
@@ -24,13 +65,14 @@
           <td>From</td>
           <td>To</td>
           <td>Rent</td>
+          <td colspan="2">Credentials</td>
+
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="trip : ${allTrip}">
-          <td th:text="${trip.id}"></td>
-          <td th:text="${trip.cargo.company.companyName}"></td>
+          <td th:text="${trip.company?.companyName}"></td>
           <td th:text="${trip.cargo.cargoName}"></td>
           <td th:text="${trip.startDate}"></td>
           <td th:text="${trip.endDate}"></td>
@@ -40,52 +82,35 @@
             <span>&#2547;</span>&nbsp;
             <span th:text="${trip.rent}"></span>
           </td>
+          <td>
+            <form th:action="@{/trip/edit/}" method="get">
+              <input type="hidden" name="id" th:value="${trip.id}" />
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </form>
+          </td>
+          <td>
+            <form th:action="@{/trip/delete}" method="post">
+              <input type="hidden" name="id" th:value="${trip.id}" />
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
         </tr>
         </tbody>
       </table>
-
     </div>
-
-    <div class="form-container">
-      <h2>Add New trip</h2>
-      <form action="#" th:action="@{/trip}" method="post" th:object="${addNewTrip}">
-        <!--                <label for="cargo-id">Cargo ID:</label>-->
-        <input type="hidden" id="trip-id" name="id" required th:field="*{id}">
-
-        <label for="company-name">Company Name:</label>
-        <select id="company-name" name="company" required th:field="*{companyId}">
-          <option th:each="company:${allCompany}" th:value="${company.ID}" th:text="${company.companyName}"></option>
-        </select>
-
-        <label for="cargo-name">Cargo Name:</label>
-        <select id="cargo-name" name="cargo" required th:field="*{cargoId}">
-          <option th:each="cargo:${allCargo}" th:value="${cargo.ID}" th:text="${cargo.cargoName}"></option>
-        </select>
-
-        <label for="start-date">Start Date</label>
-        <input type="date" id="start-date" class="form-control form-control-lg" name="start" required th:field="*{startDate}">
-
-        <label for="end-date">End Date</label>
-        <input type="date" id="end-date" class="form-control form-control-lg" name="end" required th:field="*{endDate}">
-
-
-        <label for="from-location">From</label>
-        <input type="text" id="from-location" name="from" required th:field="*{fromLocation}">
-
-        <label for="to-location">To</label>
-        <input type="text" id="to-location" name="to" required th:field="*{toLocation}">
-
-        <label for="rent">Rent</label>
-        <input type="text" id="rent" name="rent" required th:field="*{rent}">
-
-
-
-        <input type="submit" value="Add trip">
-      </form>
-    </div>
-
-
-
+    <nav aria-label="Page navigation example" th:if="${tripPage?.totalPages > 1}">
+      <ul class="pagination justify-content-end">
+        <li class="page-item" th:classappend="${tripPage.first} ? 'disabled'">
+          <a class="page-link" th:href="@{/trip(page=${tripPage.number - 1},size=${tripPage.size})}" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item" th:classappend="${page == tripPage.number} ? 'active'" th:each="page : ${#numbers.sequence(0, tripPage.totalPages - 1)}">
+          <a class="page-link" th:href="@{/trip(page=${page},size=${tripPage.size})}" th:text="${page + 1}"></a>
+        </li>
+        <li class="page-item" th:classappend="${tripPage.last} ? 'disabled'">
+          <a class="page-link" th:href="@{/trip(page=${tripPage.number + 1},size=${tripPage.size})}">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </main>
 </section>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/company")
@@ -51,6 +52,14 @@ public class CompanyController {
             companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
                     result.rejectValue("companyName", "error.company", theMessage)
             );
+        } else if (form.getID() != null) {
+            companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
+                    {
+                        if ((!Objects.equals(form.getID(), company.getID())) && (Objects.equals(form.getCompanyName(), company.getCompanyName()))) {
+                            result.rejectValue("companyName","error.company", theMessage);
+                        }
+                    }
+                    );
         }
 
         if (result.hasErrors()){
