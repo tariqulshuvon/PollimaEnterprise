@@ -1,6 +1,5 @@
 package WebApp.Enterprise.Pollima.controller;
 
-import WebApp.Enterprise.Pollima.form.TripForm;
 import WebApp.Enterprise.Pollima.model.Cargo;
 import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.model.Trip;
