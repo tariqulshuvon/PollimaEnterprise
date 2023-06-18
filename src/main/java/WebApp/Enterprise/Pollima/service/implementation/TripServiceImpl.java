@@ -43,4 +43,9 @@ public class TripServiceImpl implements TripService {
     public Page<Trip> findAll(Pageable pageable) {
         return tripRepository.findAll(pageable);
     }
+
+    @Override
+    public List<Trip> findLatestTrip(int count) {
+        return tripRepository.findLatestTrip(count);
+    }
 }

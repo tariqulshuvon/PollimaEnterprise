@@ -51,7 +51,7 @@ public class TripController {
     public String saveTrip(@Valid @ModelAttribute("addNewTrip") TripForm tripForm, BindingResult result, Model model, @PageableDefault(size = 2) Pageable pageable) {
 
         String message = messageSource.getMessage("end.date.exist", null, Locale.getDefault());
-        if (!result.hasFieldErrors("startDate") && !result.hasFieldErrors("endDate")) {
+        if (!result.hasFieldErrors("startDate") && !result.hasFieldErrors("endDate")&& !(tripForm.getEndDate().isBlank())) {
             LocalDate startDate = LocalDate.parse(tripForm.getStartDate());
             LocalDate endDate = LocalDate.parse(tripForm.getEndDate());
 

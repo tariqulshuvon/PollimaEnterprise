@@ -16,4 +16,5 @@ public interface TripService {
     void save(Trip trip);
     void delete(Long id);
     Page<Trip> findAll(Pageable pageable);
+    List<Trip> findLatestTrip(int count);
 }
