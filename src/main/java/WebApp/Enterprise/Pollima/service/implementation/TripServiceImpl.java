@@ -5,6 +5,8 @@ import WebApp.Enterprise.Pollima.repository.TripRepository;
 import WebApp.Enterprise.Pollima.service.TripService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +32,20 @@ public class TripServiceImpl implements TripService {
     @Override
     public void save(Trip trip) {
         tripRepository.save(trip);
+    }
+
+    @Override
+    public void delete(Long id) {
+        tripRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Trip> findAll(Pageable pageable) {
+        return tripRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Trip> findLatestTrip(int count) {
+        return tripRepository.findLatestTrip(count);
     }
 }
