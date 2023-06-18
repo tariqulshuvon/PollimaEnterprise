@@ -4,6 +4,7 @@ import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.repository.CompanyRepository;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Setter
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyRepository companyRepository;
-
-    public void setCompanyRepository(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
 
     @Override
     public List<Company> findAll() {

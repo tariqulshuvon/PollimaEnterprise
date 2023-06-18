@@ -35,9 +35,6 @@
                 <span class="text-danger" th:if="${#fields.hasErrors('voucherNo')}" th:errors="${addNewVoucher.voucherNo}">Error</span>
                 <input type="text" id="Voucher-No" name="voucher" th:field="*{voucherNo}">
 
-
-<!--                <input type="hidden" id="cargo-name" name="cargo" th:field="*{cargoId}"/>-->
-
                 <label for="date">Date</label>
                 <span class="text-danger" th:if="${#fields.hasErrors('date')}" th:errors="${addNewVoucher.date}">Error</span>
                 <input type="date" id="date" name="date" th:field="*{date}">

@@ -6,7 +6,6 @@ import WebApp.Enterprise.Pollima.model.Voucher;
 import WebApp.Enterprise.Pollima.service.CargoService;
 import WebApp.Enterprise.Pollima.service.TripService;
 import WebApp.Enterprise.Pollima.service.VoucherService;
-import com.sun.jdi.DoubleValue;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.MessageSource;
@@ -60,6 +59,8 @@ public class VoucherController {
                 result.rejectValue("dr","cr.or.dr.required", message);
             } else if (form.getCr() == null) {
             form.setCr(0.00);
+        } else if (form.getDr() == null) {
+            form.setDr(0.00);
         }
 
         if (result.hasErrors()){

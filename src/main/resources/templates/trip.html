@@ -18,15 +18,19 @@
 
         <label for="company-name">Company Name:</label>
         <span class="text-danger" th:if="${#fields.hasErrors('companyId')}" th:errors="${addNewTrip.companyId}">Error</span>
-        <select id="company-name" name="company"  th:field="*{companyId}">
-          <option th:each="company:${allCompany}" th:value="${company?.ID}" th:text="${company.companyName}"></option>
-        </select>
+        <div class="select-container">
+          <select id="company-name" name="company"  th:field="*{companyId}">
+            <option th:each="company:${allCompany}" th:value="${company?.ID}" th:text="${company.companyName}"></option>
+          </select>
+        </div>
 
         <label for="cargo-name">Cargo Name:</label>
         <span class="text-danger" th:if="${#fields.hasErrors('cargoId')}" th:errors="${addNewTrip.cargoId}">Error</span>
-        <select id="cargo-name" name="cargo"  th:field="*{cargoId}">
-          <option th:each="cargo:${allCargo}" th:value="${cargo?.ID}" th:text="${cargo.cargoName}"></option>
-        </select>
+        <div class="select-container">
+          <select id="cargo-name" name="cargo"  th:field="*{cargoId}">
+            <option th:each="cargo:${allCargo}" th:value="${cargo?.ID}" th:text="${cargo.cargoName}"></option>
+          </select>
+        </div>
 
         <label for="start-date">Start Date</label>
         <span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="${addNewTrip.startDate}">Error</span>

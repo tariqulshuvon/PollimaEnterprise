@@ -1,7 +1,5 @@
 package WebApp.Enterprise.Pollima.form;
 
-import WebApp.Enterprise.Pollima.model.Cargo;
-import WebApp.Enterprise.Pollima.model.Trip;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,7 +14,6 @@ public class VoucherForm {
     private Long tripId;
     @NotBlank(message = "{trip.voucher.no}")
     private String voucherNo;
-//    private Long cargoId;
     @NotBlank(message = "{voucher.date}")
     private String date;
     private Double dr;

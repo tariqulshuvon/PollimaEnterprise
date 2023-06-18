@@ -17,7 +17,6 @@ import java.util.Optional;
 @Setter
 public class CargoServiceImpl implements CargoService {
 
-
     private CargoRepository cargoRepository;
 
     @Override

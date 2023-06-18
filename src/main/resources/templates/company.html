@@ -19,18 +19,18 @@
 
                 <label for="company-name">Company Name:</label>
                 <span class="text-danger" th:if="${#fields.hasErrors('companyName')}" th:errors="${saveNewCompany.companyName}">Error</span>
-                <input type="text" id="company-name" name="companyName" class="form-control" th:field="${saveNewCompany.companyName}" th:classappend="${#fields.hasErrors('companyName')} ? 'is-invalid' : ''">
+                <input type="text" id="company-name" name="companyName" th:field="${saveNewCompany.companyName}" th:classappend="${#fields.hasErrors('companyName')} ? 'is-invalid' : ''">
 
 
                 <label for="company-contact-person">Company Person:</label>
-                <input type="text" id="company-contact-person" name="contactPerson"  class="form-control" th:field="*{contactPerson}">
+                <input type="text" id="company-contact-person" name="contactPerson" th:field="*{contactPerson}">
 
                 <label for="company-office">Company Office:</label>
-                <input type="text" id="company-office" name="office"  class="form-control" th:field="*{office}">
+                <input type="text" id="company-office" name="office" th:field="*{office}">
 
                 <label for="company-contactNo">Company Contact Number:</label>
                 <span class="text-danger" th:if="${#fields.hasErrors('contactNo')}" th:errors="${saveNewCompany.contactNo}">Error</span>
-                <input type="text" id="company-contactNo" name="contactNo"  class="form-control" th:field="${saveNewCompany.contactNo}">
+                <input type="text" id="company-contactNo" name="contactNo" th:field="${saveNewCompany.contactNo}">
 
                 <input type="submit" value="Add Company">
             </form>
@@ -41,12 +41,13 @@
             <div class="table-responsive-md">
                 <table class="table table-striped table-dark">
                     <thead>
-
+                    <tr>
                     <td>Company Name</td>
                     <td>Contact Person</td>
                     <td>Office Location</td>
                     <td>Contact Number</td>
                     <td colspan="2">Credentials</td>
+                    </tr>
                     </thead>
                     <tbody>
                     <tr th:each="company : ${companyList}">
