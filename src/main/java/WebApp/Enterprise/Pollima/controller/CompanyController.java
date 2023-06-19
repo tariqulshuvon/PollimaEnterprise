@@ -51,7 +51,7 @@ public class CompanyController {
         String companyName = form.getCompanyName();
         String theMessage = MessageFormat.format(messageToShow,companyName);
 
-        if (form.getID()==null) {
+        if (form.getId()==null) {
             companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
                     result.rejectValue("companyName", "error.company", theMessage)
             );
@@ -66,7 +66,7 @@ public class CompanyController {
         }
 
         companyService.save(Company.builder()
-                .ID(form.getID())
+                .id(form.getId())
                 .companyName(form.getCompanyName())
                 .contactPerson(form.getContactPerson())
                 .office(form.getOffice())
@@ -85,7 +85,7 @@ public class CompanyController {
     private String editCompany(Model model,@RequestParam(name = "id")long id) {
         companyService.findById(id).ifPresent(company -> {
             CompanyForm companyForm = CompanyForm.builder()
-                    .ID(company.getID())
+                    .id(company.getId())
                     .companyName(company.getCompanyName())
                     .contactPerson(company.getContactPerson())
                     .office(company.getOffice())

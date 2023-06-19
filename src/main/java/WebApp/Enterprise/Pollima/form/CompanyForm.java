@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 @Data
 @Builder
 public class CompanyForm {
-    private Long ID;
+    private Long id;
     @NotBlank(message = "{company.name}")
     private String companyName;
     private String contactPerson;

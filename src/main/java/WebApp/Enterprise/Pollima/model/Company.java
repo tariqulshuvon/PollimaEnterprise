@@ -15,7 +15,7 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
 
     @Column
     private String companyName;
@@ -30,11 +30,11 @@ public class Company {
     private String contactNo;
 
     @OneToMany(targetEntity = Cargo.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "company_Id", referencedColumnName = "id")
     private List<Cargo> CargoList;
 
     @OneToMany(targetEntity = Trip.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "companyId", referencedColumnName = "ID")
+    @JoinColumn(name = "companyId", referencedColumnName = "id")
     private List<Trip> tripList;
 
 }
