@@ -31,7 +31,7 @@ public class CompanyController {
     @GetMapping
     public String company(Model model) {
         List<Company> companyList = companyService.findAll();
-        model.addAttribute("CompanyList", companyList);
+        model.addAttribute("companyList", companyList);
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
         return "company";
     }
