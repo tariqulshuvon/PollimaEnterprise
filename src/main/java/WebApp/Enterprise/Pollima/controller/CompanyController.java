@@ -49,7 +49,7 @@ public class CompanyController {
 
         if (form.getId()==null) {
             companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-                    result.rejectValue("companyName", "error.company", theMessage)
+                    result.rejectValue("companyName", "company.exist", new Object[]{form.getCompanyName()}, "company.exist")
             );
         }
 
