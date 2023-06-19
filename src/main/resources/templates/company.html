@@ -15,7 +15,6 @@
         <div class="form-container">
             <h2>Add New Company</h2>
             <form action="#" th:action="@{/company}" method="post" th:object="${saveNewCompany}">
-<!--                <label for="company-id">Company ID:</label>-->
                 <input type="hidden" id="company-id" name="id" th:field="*{id}">
 
                 <label for="company-name">Company Name:</label>

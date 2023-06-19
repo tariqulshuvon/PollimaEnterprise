@@ -5,7 +5,6 @@ import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,16 +34,7 @@ public class CompanyController {
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
         return "company";
     }
-//
-//    String messageToShow = messageSource.getMessage("company.exist",null, LocaleContextHolder.getLocale());
-//    String companyName = form.getCompanyName();
-//    String theMessage = MessageFormat.format(messageToShow,companyName);
-//
-//        if (form.getID()==null) {
-//        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-//                result.rejectValue("companyName", "error.company", theMessage)
-//        );
-//    }
+
     @PostMapping
     private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
         String messageToShow = messageSource.getMessage("company.exist",null, LocaleContextHolder.getLocale());
@@ -56,10 +46,6 @@ public class CompanyController {
                     result.rejectValue("companyName", "error.company", theMessage)
             );
         }
-
-//        companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-//                result.rejectValue("companyName","error.company", form.getCompanyName()+" already Exist, add a new Company")
-//        );
 
         if (result.hasErrors()){
             return "company";
