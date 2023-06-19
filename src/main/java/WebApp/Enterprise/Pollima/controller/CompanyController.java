@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,12 +31,15 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping
-    public String company(Model model) {
-        List<Company> companyList = companyService.findAll();
+    public String company(Model model, @PageableDefault(size = 2) Pageable pageable) {
+        Page<Company> companyPage = companyService.findAll(pageable);
+        List<Company> companyList = companyPage.getContent();
         model.addAttribute("companyList", companyList);
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
+        model.addAttribute("companyPage", companyPage);
         return "company";
     }
+
 
     @PostMapping
     private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){

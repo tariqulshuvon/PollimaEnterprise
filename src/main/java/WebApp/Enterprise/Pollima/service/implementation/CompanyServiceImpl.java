@@ -5,6 +5,8 @@ import WebApp.Enterprise.Pollima.repository.CompanyRepository;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +47,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Optional<Company> findByCompanyName(String name) {
         return companyRepository.findByCompanyName(name);
+    }
+
+    @Override
+    public Page<Company> findAll(Pageable pageable) {
+        return companyRepository.findAll(pageable);
     }
 }

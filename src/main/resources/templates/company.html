@@ -58,13 +58,13 @@
                         <td th:text="${company.contactNo}"></td>
                         <td>
                             <form th:action="@{/company/edit}" method="get">
-                                <input type="hidden" name="id" th:value="${company.ID}" />
+                                <input type="hidden" name="id" th:value="${company.id}" />
                                 <button type="submit" class="btn btn-primary">Edit</button>
                             </form>
                         </td>
                         <td>
                             <form th:action="@{/company/delete}" method="get">
-                                <input type="hidden" name="id" th:value="${company.ID}" />
+                                <input type="hidden" name="id" th:value="${company.id}" />
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
@@ -72,13 +72,17 @@
                     </tbody>
                 </table>
             </div>
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example" th:if="${companyPage?.totalPages > 1}">
                 <ul class="pagination justify-content-end">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item" th:classappend="${companyPage.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/company(page=${companyPage.number - 1},size=${companyPage.size})}" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item" th:classappend="${page == companyPage.number} ? 'active'" th:each="page : ${#numbers.sequence(0, companyPage.totalPages - 1)}">
+                        <a class="page-link" th:href="@{/company(page=${page},size=${companyPage.size})}" th:text="${page + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${companyPage.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/company(page=${companyPage.number + 1},size=${companyPage.size})}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>
