@@ -58,7 +58,9 @@ public class CompanyController {
 
     @GetMapping("/delete")
     private String deleteCompany(@RequestParam(name = "id") long id){
-        companyService.delete(id);
+        companyService.findById(id).ifPresent(company -> {
+            companyService.delete(company);
+        });
         return "redirect:/company";
     }
 
