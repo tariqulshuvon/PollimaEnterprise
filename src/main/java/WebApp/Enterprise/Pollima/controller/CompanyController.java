@@ -5,7 +5,6 @@ import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/company")
@@ -28,11 +26,9 @@ public class CompanyController {
 
     @GetMapping
     public String company(Model model, @PageableDefault(size = 2) Pageable pageable) {
-        Page<Company> companyPage = companyService.findAll(pageable);
-        List<Company> companyList = companyPage.getContent();
-        model.addAttribute("companyList", companyList);
+        model.addAttribute("companyList", companyService.findAll(pageable).getContent());
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
-        model.addAttribute("companyPage", companyPage);
+        model.addAttribute("companyPage", companyService.findAll(pageable));
         return "company";
     }
 
