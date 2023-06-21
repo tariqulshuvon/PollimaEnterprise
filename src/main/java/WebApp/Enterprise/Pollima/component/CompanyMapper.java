@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CompanyMapper {
-    public Company mapToCompany(CompanyForm form){
+    public Company mapToCompany(CompanyForm form) {
         return Company.builder()
                 .id(form.getId())
                 .companyName(form.getCompanyName())
@@ -15,7 +15,8 @@ public class CompanyMapper {
                 .contactNo(form.getContactNo())
                 .build();
     }
-    public CompanyForm mapToForm(Company company){
+
+    public CompanyForm mapToForm(Company company) {
         return CompanyForm.builder()
                 .id(company.getId())
                 .companyName(company.getCompanyName())

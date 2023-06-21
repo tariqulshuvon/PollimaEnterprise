@@ -22,7 +22,6 @@ import javax.validation.Valid;
 public class CompanyController {
 
 
-
     private CompanyService companyService;
     private CompanyMapper companyMapper;
 
@@ -36,15 +35,15 @@ public class CompanyController {
 
 
     @PostMapping
-    private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result){
+    private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result) {
 
-        if (form.getId()==null) {
+        if (form.getId() == null) {
             companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
                     result.rejectValue("companyName", "company.exist", new Object[]{form.getCompanyName()}, "company.exist")
             );
         }
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "company";
         }
 
@@ -54,7 +53,7 @@ public class CompanyController {
     }
 
     @GetMapping("/delete")
-    private String deleteCompany(@RequestParam(name = "id") long id){
+    private String deleteCompany(@RequestParam(name = "id") long id) {
         companyService.findById(id).ifPresent(company -> {
             companyService.delete(company);
         });
@@ -62,10 +61,10 @@ public class CompanyController {
     }
 
     @GetMapping("/edit")
-    private String editCompany(Model model,@RequestParam(name = "id")long id,@PageableDefault(size = 2) Pageable pageable) {
+    private String editCompany(Model model, @RequestParam(name = "id") long id, @PageableDefault(size = 2) Pageable pageable) {
         companyService.findById(id).ifPresent(company -> {
             CompanyForm companyForm = companyMapper.mapToForm(company);
-            model.addAttribute("saveNewCompany",companyForm);
+            model.addAttribute("saveNewCompany", companyForm);
             model.addAttribute("companyList", companyService.findAll(pageable).getContent());
             model.addAttribute("companyPage", companyService.findAll(pageable));
         });
