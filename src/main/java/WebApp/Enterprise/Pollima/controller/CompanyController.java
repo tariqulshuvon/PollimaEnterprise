@@ -1,5 +1,6 @@
 package WebApp.Enterprise.Pollima.controller;
 
+import WebApp.Enterprise.Pollima.component.CompanyMapper;
 import WebApp.Enterprise.Pollima.form.CompanyForm;
 import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.service.CompanyService;
@@ -23,6 +24,7 @@ public class CompanyController {
 
 
     private CompanyService companyService;
+    private CompanyMapper companyMapper;
 
     @GetMapping
     public String company(Model model, @PageableDefault(size = 2) Pageable pageable) {
@@ -46,13 +48,8 @@ public class CompanyController {
             return "company";
         }
 
-        companyService.save(Company.builder()
-                .id(form.getId())
-                .companyName(form.getCompanyName())
-                .contactPerson(form.getContactPerson())
-                .office(form.getOffice())
-                .contactNo(form.getContactNo())
-                .build());
+        Company company = companyMapper.mapToCompany(form);
+        companyService.save(company);
         return "redirect:/company";
     }
 
@@ -65,16 +62,12 @@ public class CompanyController {
     }
 
     @GetMapping("/edit")
-    private String editCompany(Model model,@RequestParam(name = "id")long id) {
+    private String editCompany(Model model,@RequestParam(name = "id")long id,@PageableDefault(size = 2) Pageable pageable) {
         companyService.findById(id).ifPresent(company -> {
-            CompanyForm companyForm = CompanyForm.builder()
-                    .id(company.getId())
-                    .companyName(company.getCompanyName())
-                    .contactPerson(company.getContactPerson())
-                    .office(company.getOffice())
-                    .contactNo(company.getContactNo())
-                    .build();
+            CompanyForm companyForm = companyMapper.mapToForm(company);
             model.addAttribute("saveNewCompany",companyForm);
+            model.addAttribute("companyList", companyService.findAll(pageable).getContent());
+            model.addAttribute("companyPage", companyService.findAll(pageable));
         });
         return "company";
     }
