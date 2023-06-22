@@ -27,7 +27,6 @@ public class CompanyController {
 
     @GetMapping
     public String company(Model model, @PageableDefault(size = 2) Pageable pageable) {
-        model.addAttribute("companyList", companyService.findAll(pageable).getContent());
         model.addAttribute("saveNewCompany", CompanyForm.builder().build());
         model.addAttribute("companyPage", companyService.findAll(pageable));
         return "company";
