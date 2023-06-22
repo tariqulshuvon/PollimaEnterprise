@@ -26,18 +26,18 @@ public class CompanyController {
 
     @GetMapping
     public String company(Model model, Pageable pageable) {
-        model.addAttribute("saveNewCompany", CompanyForm.builder().build());
+        model.addAttribute("companyForm", CompanyForm.builder().build());
         model.addAttribute("companyPage", companyService.findAll(pageable));
         return "company";
     }
 
 
     @PostMapping
-    private String saveCompany(@Valid @ModelAttribute("saveNewCompany") CompanyForm form, BindingResult result) {
+    private String saveCompany(@Valid @ModelAttribute("companyForm") CompanyForm companyForm, BindingResult result) {
 
-        if (form.getId() == null) {
-            companyService.findByCompanyName(form.getCompanyName()).ifPresent(company ->
-                    result.rejectValue("companyName", "company.exist", new Object[]{form.getCompanyName()}, "company.exist")
+        if (companyForm.getId() == null) {
+            companyService.findByCompanyName(companyForm.getCompanyName()).ifPresent(company ->
+                    result.rejectValue("companyName", "company.exist", new Object[]{companyForm.getCompanyName()}, "company.exist")
             );
         }
 
@@ -45,7 +45,7 @@ public class CompanyController {
             return "company";
         }
 
-        Company company = companyMapper.mapToCompany(form);
+        Company company = companyMapper.mapToCompany(companyForm);
         companyService.save(company);
         return "redirect:/company";
     }
@@ -62,7 +62,7 @@ public class CompanyController {
     private String editCompany(Model model, @RequestParam(name = "id") long id, Pageable pageable) {
         companyService.findById(id).ifPresent(company -> {
             CompanyForm companyForm = companyMapper.mapToForm(company);
-            model.addAttribute("saveNewCompany", companyForm);
+            model.addAttribute("companyForm", companyForm);
             model.addAttribute("companyPage", companyService.findAll(pageable));
         });
         return "company";

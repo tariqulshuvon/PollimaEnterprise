@@ -16,13 +16,13 @@
 
             <div class="form-container">
                 <h2>Add New Company</h2>
-                <form action="#" th:action="@{/company}" method="post" th:object="${saveNewCompany}">
+                <form action="#" th:action="@{/company}" method="post" th:object="${companyForm}">
                     <input type="hidden" id="company-id" name="id" th:field="*{id}">
 
                     <label for="company-name">Company Name:</label>
                     <span class="text-danger" th:if="${#fields.hasErrors('companyName')}"
-                          th:errors="${saveNewCompany.companyName}">Error</span>
-                    <input type="text" id="company-name" name="companyName" th:field="${saveNewCompany.companyName}"
+                          th:errors="${companyForm.companyName}">Error</span>
+                    <input type="text" id="company-name" name="companyName" th:field="${companyForm.companyName}"
                            th:classappend="${#fields.hasErrors('companyName')} ? 'is-invalid' : ''">
 
 
@@ -34,8 +34,8 @@
 
                     <label for="company-contactNo">Company Contact Number:</label>
                     <span class="text-danger" th:if="${#fields.hasErrors('contactNo')}"
-                          th:errors="${saveNewCompany.contactNo}">Error</span>
-                    <input type="text" id="company-contactNo" name="contactNo" th:field="${saveNewCompany.contactNo}">
+                          th:errors="${companyForm.contactNo}">Error</span>
+                    <input type="text" id="company-contactNo" name="contactNo" th:field="${companyForm.contactNo}">
 
                     <input type="submit" value="Save Company">
                 </form>
