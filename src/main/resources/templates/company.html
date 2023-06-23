@@ -77,7 +77,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div th:replace="pagination.html :: pagination(pageable=${companyPage}, page=${companyPage})"></div>
+                <div th:replace="pagination.html :: pagination(page=${companyPage}, url = '/company' )"></div>
             </div>
 
         </div>

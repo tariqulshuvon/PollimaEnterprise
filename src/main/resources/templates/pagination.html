@@ -1,19 +1,19 @@
-<th:block th:fragment="pagination(pageable, page)">
+<th:block th:fragment="pagination(page,url)">
     <nav aria-label="Page navigation example" th:if="${page?.totalPages > 1}">
         <ul class="pagination justify-content-end">
             <li class="page-item" th:classappend="${page.first} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/company(page=${page.number - 1}, size=${page.size})}"
+                   th:href="@{${url} (page=${page.number - 1}, size=${page.size})}"
                    tabindex="-1" aria-disabled="true">Previous</a>
             </li>
             <li class="page-item" th:classappend="${currentPage == page.number} ? 'active'"
                 th:each="currentPage : ${#numbers.sequence(0, page.totalPages - 1)}">
-                <a class="page-link" th:href="@{/company(page=${currentPage}, size=${page.size})}"
+                <a class="page-link" th:href="@{${url} (page=${currentPage}, size=${page.size})}"
                    th:text="${currentPage + 1}"></a>
             </li>
             <li class="page-item" th:classappend="${page.last} ? 'disabled'">
                 <a class="page-link"
-                   th:href="@{/company(page=${page.number + 1}, size=${page.size})}">Next</a>
+                   th:href="@{${url} (page=${page.number + 1}, size=${page.size})}">Next</a>
             </li>
         </ul>
     </nav>
