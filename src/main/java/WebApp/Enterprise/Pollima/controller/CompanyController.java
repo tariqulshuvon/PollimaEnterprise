@@ -33,7 +33,7 @@ public class CompanyController {
 
 
     @PostMapping
-    private String saveCompany(@Valid @ModelAttribute("companyForm") CompanyForm companyForm, BindingResult result) {
+    private String saveCompany(@Valid @ModelAttribute("companyForm") CompanyForm companyForm, BindingResult result, Model model, Pageable pageable) {
 
         if (companyForm.getId() == null) {
             companyService.findByCompanyName(companyForm.getCompanyName()).ifPresent(company ->
@@ -42,6 +42,7 @@ public class CompanyController {
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("companyPage", companyService.findAll(pageable));
             return "company";
         }
 
