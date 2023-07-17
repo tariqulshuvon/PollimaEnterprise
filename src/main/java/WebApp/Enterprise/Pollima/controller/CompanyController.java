@@ -1,19 +1,18 @@
 package WebApp.Enterprise.Pollima.controller;
 
+import WebApp.Enterprise.Pollima.component.CompanyMapper;
 import WebApp.Enterprise.Pollima.form.CompanyForm;
 import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/company")
@@ -22,27 +21,51 @@ import java.util.List;
 public class CompanyController {
 
 
-
     private CompanyService companyService;
+    private CompanyMapper companyMapper;
 
     @GetMapping
-    public String company(Model model){
-        List<Company> companyList = companyService.findAll();
-        model.addAttribute("CompanyList",companyList);
-        model.addAttribute("AddNewCompany", CompanyForm.builder().build());
+    public String company(Model model, Pageable pageable) {
+        model.addAttribute("companyForm", CompanyForm.builder().build());
+        model.addAttribute("companyPage", companyService.findAll(pageable));
         return "company";
     }
 
+
     @PostMapping
-    private String saveCompany(@ModelAttribute("saveNewCompany") CompanyForm form){
-        companyService.save(Company.builder()
-                .ID(form.getID())
-                .CompanyName(form.getCompanyName())
-                .contactPerson(form.getContactPerson())
-                .office(form.getOffice())
-                .contactNo(form.getContactNo())
-                .build());
+    private String saveCompany(@Valid @ModelAttribute("companyForm") CompanyForm companyForm, BindingResult result, Model model, Pageable pageable) {
+
+        if (companyForm.getId() == null) {
+            companyService.findByCompanyName(companyForm.getCompanyName()).ifPresent(company ->
+                    result.rejectValue("companyName", "company.exist", new Object[]{companyForm.getCompanyName()}, "company.exist")
+            );
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("companyPage", companyService.findAll(pageable));
+            return "company";
+        }
+
+        Company company = companyMapper.mapToCompany(companyForm);
+        companyService.save(company);
         return "redirect:/company";
     }
 
+    @GetMapping("/delete")
+    private String deleteCompany(@RequestParam(name = "id") long id) {
+        companyService.findById(id).ifPresent(company -> {
+            companyService.delete(company);
+        });
+        return "redirect:/company";
+    }
+
+    @GetMapping("/edit")
+    private String editCompany(Model model, @RequestParam(name = "id") long id, Pageable pageable) {
+        companyService.findById(id).ifPresent(company -> {
+            CompanyForm companyForm = companyMapper.mapToForm(company);
+            model.addAttribute("companyForm", companyForm);
+            model.addAttribute("companyPage", companyService.findAll(pageable));
+        });
+        return "company";
+    }
 }
