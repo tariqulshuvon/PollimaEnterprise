@@ -19,6 +19,5 @@ public interface CompanyService {
     Optional<Company> findByCompanyName(String name);
     Page<Company> findAll(Pageable pageable);
 
-    Page<Company> findAll(Pageable pageable);
 
 }
