@@ -41,7 +41,13 @@ h1 {
     font-size: 18px;
 }
 
-.form-container input[type="text"], .form-container input[type="email"] {
+.form-container input[type="text"],.form-container input[type="number"], .form-container input[type="email"], .form-container input[type="date"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+select{
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -55,6 +61,7 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .form-container input[type="submit"]:hover {
