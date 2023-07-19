@@ -39,8 +39,8 @@ public class Trip {
     @Column
     private Double rent;
 
-    @OneToOne(targetEntity = Voucher.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "report_id", referencedColumnName = "id")
-    private Voucher voucher;
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    private List<Voucher> vouchers;
+
 
 }

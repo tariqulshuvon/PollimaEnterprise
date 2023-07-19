@@ -41,11 +41,21 @@ h1 {
     font-size: 18px;
 }
 
-.form-container input[type="text"], .form-container input[type="email"] {
+.form-container input[type="text"],.form-container input[type="number"], .form-container input[type="email"], .form-container input[type="date"] {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+select{
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    width: 100%;
+    border-radius: 5px;
+}
+.select-container{
+    margin-bottom: 20px;
 }
 
 .form-container input[type="submit"] {
@@ -55,6 +65,7 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .form-container input[type="submit"]:hover {
@@ -215,4 +226,13 @@ h1 {
 
 .add-cargo-form input[type="submit"]:hover {
     background-color: #333;
+}
+
+.editBtn a{
+    color: white;
+    text-decoration: none;
+}
+.editBtn a:hover{
+    text-decoration: none;
+    color: white;
 }

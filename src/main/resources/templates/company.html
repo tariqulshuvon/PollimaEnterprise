@@ -32,10 +32,9 @@
                     <label for="company-office">Company Office:</label>
                     <input type="text" id="company-office" name="office" th:field="*{office}">
 
-                    <label for="company-contactNo">Company Contact Number:</label>
-                    <span class="text-danger" th:if="${#fields.hasErrors('contactNo')}"
-                          th:errors="${companyForm.contactNo}">Error</span>
-                    <input type="text" id="company-contactNo" name="contactNo" th:field="${companyForm.contactNo}">
+                <label for="company-contactNo">Company Contact Number:</label>
+                <span class="text-danger" th:if="${#fields.hasErrors('contactNo')}" th:errors="${saveNewCompany.contactNo}">Error</span>
+                <input type="text" id="company-contactNo" name="contactNo"  class="form-control" th:field="${saveNewCompany.contactNo}">
 
                     <input type="submit" value="Save Company">
                 </form>
