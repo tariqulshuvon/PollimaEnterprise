@@ -17,6 +17,7 @@ public interface CompanyService {
     void delete(Company company);
 
     Optional<Company> findByCompanyName(String name);
+    Page<Company> findAll(Pageable pageable);
 
     Page<Company> findAll(Pageable pageable);
 
