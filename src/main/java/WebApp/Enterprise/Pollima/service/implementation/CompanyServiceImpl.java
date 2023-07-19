@@ -4,6 +4,7 @@ import WebApp.Enterprise.Pollima.model.Company;
 import WebApp.Enterprise.Pollima.repository.CompanyRepository;
 import WebApp.Enterprise.Pollima.service.CompanyService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void delete(Long id) {
-        companyRepository.deleteById(id);
+    public void delete(Company company) {
+        companyRepository.delete(company);
     }
 
     @Override

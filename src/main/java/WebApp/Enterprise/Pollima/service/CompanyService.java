@@ -14,9 +14,11 @@ public interface CompanyService {
 
     Optional<Company> findById(Long id);
 
-    void delete(Long id);
+    void delete(Company company);
 
     Optional<Company> findByCompanyName(String name);
+    Page<Company> findAll(Pageable pageable);
+
     Page<Company> findAll(Pageable pageable);
 
 }
